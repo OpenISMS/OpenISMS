@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    {{template "head.gohtml"}}
+    <title>OpenISMS - Devices</title>
+    <meta name="description" content="The Open Information Security Management System">
+</head>
+<body>
+
+{{template "header.gohtml"}}
+
+<main class="container-fluid">
+    {{template "menu.gohtml"}}
+
+
+    <div role="document">
+        <header class="grid">
+            <h1>Devices</h1>
+            <div></div>
+            <div style="margin-left: auto;">
+                <a href="#" role="button" class="outline">Add entry</a>
+            </div>
+            <div>
+                <input type="search" id="searchField" onkeyup="filter()" placeholder="Search">
+            </div>
+        </header>
+
+        <section>
+            <figure>
+                <table role="grid" id="mainTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">Identifier</th>
+                        <th scope="col">Type / Vendor</th>
+                        <th scope="col">Assigned to</th>
+                        <th scope="col">Info</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td>FVFFTCMQQ05D</td>
+                        <td>MacBook Pro (13-inch, M1, 2020)<br>Apple</td>
+                        <td>Lorenzo McCullough</td>
+                        <td><ul><li>macOS 13.0</li><li>enrolled in MDM</li><li><a href="https://a.simplemdm.com/admin/devices/999374">Open SimpleMDM</a></li></ul></td>
+                    </tr>
+                    <tr>
+                        <td>FVFFTCMQQ05D</td>
+                        <td>MacBook Pro (13-inch, M1, 2020)<br>Apple</td>
+                        <td>Sylvester Kerluke</td>
+                        <td><ul><li>macOS 13.0</li><li>enrolled in MDM</li><li><a href="https://a.simplemdm.com/admin/devices/999374">Open SimpleMDM</a></li></ul></td>
+                    </tr>
+                    <tr>
+                        <td>FVFFTCMQQ05D</td>
+                        <td>MacBook Pro (13-inch, M1, 2020)<br>Apple</td>
+                        <td>Janie Lueilwitz</td>
+                        <td><ul><li>macOS 13.0</li><li>enrolled in MDM</li><li><a href="https://a.simplemdm.com/admin/devices/999374">Open SimpleMDM</a></li></ul></td>
+                    </tr>
+                    <tr>
+                        <td>FVFFTCMQQ05D</td>
+                        <td>MacBook Pro (13-inch, M1, 2020)<br>Apple</td>
+                        <td>Jackie Collins</td>
+                        <td><ul><li>macOS 13.0</li><li>enrolled in MDM</li><li><a href="https://a.simplemdm.com/admin/devices/999374">Open SimpleMDM</a></li></ul></td>
+                    </tr>
+                    <tr>
+                        <td>FVFFTCMQQ05D</td>
+                        <td>MacBook Pro (13-inch, M1, 2020)<br>Apple</td>
+                        <td>Jenna McCullough</td>
+                        <td><ul><li>macOS 13.0</li><li>enrolled in MDM</li><li><a href="https://a.simplemdm.com/admin/devices/999374">Open SimpleMDM</a></li></ul></td>
+                    </tr>
+                    <tr>
+                        <td>FVFFTCMQQ05D</td>
+                        <td>MacBook Pro (13-inch, M1, 2020)<br>Apple</td>
+                        <td>Preston Quigley</td>
+                        <td><ul><li>macOS 13.0</li><li>enrolled in MDM</li><li><a href="https://a.simplemdm.com/admin/devices/999374">Open SimpleMDM</a></li></ul></td>
+                    </tr>
+                    <tr>
+                        <td>FVFFTCMQQ05D</td>
+                        <td>MacBook Pro (13-inch, M1, 2020)<br>Apple</td>
+                        <td>Brad Bechtelar</td>
+                        <td><ul><li>macOS 13.0</li><li>enrolled in MDM</li><li><a href="https://a.simplemdm.com/admin/devices/999374">Open SimpleMDM</a></li></ul></td>
+                    </tr>
+                    <tr>
+                        <td>FVFFTCMQQ05D</td>
+                        <td>MacBook Pro (13-inch, M1, 2020)<br>Apple</td>
+                        <td>Danny Grimes</td>
+                        <td><ul><li>macOS 13.0</li><li>enrolled in MDM</li><li><a href="https://a.simplemdm.com/admin/devices/999374">Open SimpleMDM</a></li></ul></td>
+                    </tr>
+                    <tr>
+                        <td>FVFFTCMQQ05D</td>
+                        <td>MacBook Pro (13-inch, M1, 2020)<br>Apple</td>
+                        <td>Alice Rath</td>
+                        <td><ul><li>macOS 13.0</li><li>enrolled in MDM</li><li><a href="https://a.simplemdm.com/admin/devices/999374">Open SimpleMDM</a></li></ul></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </figure>
+        </section>
+        {{template "footer.gohtml"}}
+    </div>
+
+</main>
+<script>
+    // https://www.w3schools.com/howto/howto_js_filter_table.asp
+    function filter() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchField");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("mainTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<script>
+    const activeLink = document.querySelector("aside a#devices-link"), parentAccordion = activeLink.closest("details");
+    activeLink.setAttribute("aria-current", "page"), parentAccordion.setAttribute("open", "true")
+</script>
+<script src="/static/js/commons.min.js"></script>
+</body>
+</html>

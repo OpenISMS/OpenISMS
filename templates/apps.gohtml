@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    {{template "head.gohtml"}}
+    <title>OpenISMS - Suppliers</title>
+    <meta name="description" content="The Open Information Security Management System">
+</head>
+<body>
+
+{{template "header.gohtml"}}
+
+<main class="container-fluid">
+    {{template "menu.gohtml"}}
+
+
+    <div role="document">
+        <header class="grid">
+            <h1>Apps & Software</h1>
+            <div></div>
+            <div style="margin-left: auto;">
+                <a href="#" role="button" class="outline">Add entry</a>
+            </div>
+            <div>
+                <input type="search" id="searchField" onkeyup="filter()" placeholder="Search">
+            </div>
+        </header>
+
+        <section>
+            <figure>
+                <table role="grid" id="mainTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">App / Vendor</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Accounts / SSO</th>
+                        <th scope="col">Owner / Admin</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td><strong>GitHub</strong><br>GitHub LLC.</td>
+                        <td>Code hosting</td>
+                        <td>16 / via Google</td>
+                        <td>
+                            <ul>
+                                <li><a href="#">Sylvester Kerluke</a></li>
+                                <li><a href="#">Lorenzo McCullough</a></li>
+                                <li><a href="#">Danny Grimes</a></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li><a href="https://www.github.com/OpenISMS/">Open</a></li>
+                                <li><a href="#">Risk Assessment</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </figure>
+        </section>
+        {{template "footer.gohtml"}}
+    </div>
+
+</main>
+<script>
+    // https://www.w3schools.com/howto/howto_js_filter_table.asp
+    function filter() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchField");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("mainTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<script>
+    const activeLink = document.querySelector("aside a#apps-link"), parentAccordion = activeLink.closest("details");
+    activeLink.setAttribute("aria-current", "page"), parentAccordion.setAttribute("open", "true")
+</script>
+<script src="/static/js/commons.min.js"></script>
+</body>
+</html>

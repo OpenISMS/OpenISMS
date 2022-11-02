@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    {{template "head.gohtml"}}
+    <title>OpenISMS</title>
+    <meta name="description" content="The Open Information Security Management System">
+</head>
+<body>
+
+{{template "header.gohtml"}}
+
+<main class="container-fluid">
+    {{template "menu.gohtml"}}
+
+
+    <div role="document">
+        <header class="grid">
+            <h1>People & Accounts</h1>
+            <div></div>
+            <input type="search" id="searchField" onkeyup="filterPeople()" placeholder="Search">
+        </header>
+
+        <section>
+            <figure>
+                <table role="grid" id="peopleTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Accounts</th>
+                        <th scope="col">Devices</th>
+                        <th scope="col">Roles</th>
+                        <th scope="col">Trainings</th>
+                        <th scope="col">Policies</th>
+                        <th scope="col">Employment</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {{- /*gotype: OpenISMS.PeoplePageData*/ -}}
+                    {{ range .People }}
+                        <tr>
+                            <td>
+                                {{ if .Person.Picture }}
+                                    <a href="{{.Person.Picture.Url}}" target="_blank" role="img">
+                                        <img src="data:{{.Person.Picture.MimeType}};base64,{{.Person.Picture.Base_64Encoded}}" alt="{{.Person.Name.FullName}}" width="64px">
+                                    </a>
+                                {{ end }}
+                                {{.Person.Name.FullName}}
+                            </td>
+                            <td>
+                                <ul>
+                                    <li><a href="https://admin.google.com">Google Workspace</a></li>
+                                    <li><a href="https://admin.google.com">GitHub</a></li>
+                                </ul>
+                            <td>
+                                {{ if .Possessions }}
+                                    {{ range .Possessions }}
+                                        <p data-tooltip="{{.Identifier}}">{{ .Name }}</p><br>
+                                        {{.Os.FullVersion }}
+                                    {{ end }}
+                                {{ end }}
+                            </td>
+                            <td>{{.Groups}}</td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                {{ if .Employment }}
+                                    {{.Employment.Status}} ({{.Employment.Contract}})<br>
+                                    {{.Employment.Begin}} – {{.Employment.End}}
+                                {{ end }}
+                            </td>
+                        </tr>
+                    {{ end }}
+
+                    </tbody>
+                </table>
+            </figure>
+        </section>
+        {{template "footer.gohtml"}}
+    </div>
+
+</main>
+<script>
+    // https://www.w3schools.com/howto/howto_js_filter_table.asp
+    function filterPeople() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchField");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("peopleTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<script>
+    const activeLink = document.querySelector("aside a#people-link"), parentAccordion = activeLink.closest("details");
+    activeLink.setAttribute("aria-current", "page"), parentAccordion.setAttribute("open", "true")
+</script>
+<script src="/static/js/commons.min.js"></script>
+</body>
+</html>

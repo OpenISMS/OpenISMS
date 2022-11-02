@@ -1,0 +1,13 @@
+{
+  "name": "OpenISMS",
+  "short_name": "OpenISMS",
+  "icons": [{
+      "src": "/img/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#00897b",
+  "background_color": "#00897b",
+  "display": "standalone"
+}

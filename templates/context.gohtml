@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    {{template "head.gohtml"}}
+    <title>OpenISMS - Suppliers</title>
+    <meta name="description" content="The Open Information Security Management System">
+</head>
+<body>
+
+{{template "header.gohtml"}}
+
+<main class="container-fluid">
+    {{template "menu.gohtml"}}
+
+
+    <div role="document">
+
+        <h1>Context of the ISMS</h1>
+
+        <article>
+            Provide information about your company…
+        </article>
+
+    </div>
+
+</main>
+
+<script>
+    const activeLink = document.querySelector("aside a#context-link"), parentAccordion = activeLink.closest("details");
+    activeLink.setAttribute("aria-current", "page"), parentAccordion.setAttribute("open", "true")
+</script>
+<script src="/static/js/commons.min.js"></script>
+</body>
+</html>

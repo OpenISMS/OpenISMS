@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    {{template "head.gohtml"}}
+    <title>OpenISMS - Suppliers</title>
+    <meta name="description" content="The Open Information Security Management System">
+</head>
+<body>
+
+{{template "header.gohtml"}}
+
+<main class="container-fluid">
+    {{template "menu.gohtml"}}
+
+
+    <div role="document">
+        <header class="grid">
+            <h1>Suppliers</h1>
+            <div></div>
+            <div style="margin-left: auto;">
+                <a href="#" role="button" class="outline">Add entry</a>
+            </div>
+            <div>
+                <input type="search" id="searchField" onkeyup="filter()" placeholder="Search">
+            </div>
+        </header>
+
+        <section>
+            <figure>
+                <table role="grid" id="peopleTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Service</th>
+                        <th scope="col">Risk Assessment</th>
+                        <th scope="col">Documents</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {{- /*gotype: OpenISMS.SuppliersPageData*/ -}}
+                    {{ range .Suppliers }}
+                        <tr>
+                            <td>
+                                <h5>{{.Name}}</h5>
+                                <div class="grid">
+
+                                    {{ if .LogoUrl }}
+                                        <div>
+                                            <img src="{{ .LogoUrl }}" alt="{{.Name}}" width="64px">
+                                        </div>
+                                    {{ end }}
+                                    <div>
+                                        {{ .Vendor }}<br>
+                                        <a href="{{ .Url }}" target="_blank">
+                                            {{ .Url }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <ul>
+                                    {{ range .Services }}
+                                        <li>{{ . }}</li>
+                                    {{ end }}
+                                </ul>
+                            <td>
+                                –
+                            </td>
+                            <td>
+                                <ul>
+                                    {{ range .Docs}}
+                                        <li>
+                                            <a href="{{.Url}}">
+                                                {{ if .Logo }}<img src="static/img/{{.Logo}}" role="img" width="50px" height="50px">{{ end }}
+                                                {{ .Name }}</a> <br>
+                                            {{ .Comment }}
+                                        </li>
+                                    {{ end}}
+                                </ul>
+                            </td>
+                        </tr>
+                    {{ end }}
+
+                    </tbody>
+                </table>
+            </figure>
+        </section>
+        {{template "footer.gohtml"}}
+    </div>
+
+</main>
+<script>
+    // https://www.w3schools.com/howto/howto_js_filter_table.asp
+    function filter() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchField");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("peopleTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<script>
+    const activeLink = document.querySelector("aside a#suppliers-link"), parentAccordion = activeLink.closest("details");
+    activeLink.setAttribute("aria-current", "page"), parentAccordion.setAttribute("open", "true")
+</script>
+<script src="/static/js/commons.min.js"></script>
+</body>
+</html>

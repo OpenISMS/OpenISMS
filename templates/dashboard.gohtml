@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    {{template "head.gohtml"}}
+    <title>OpenISMS - Suppliers</title>
+    <meta name="description" content="The Open Information Security Management System">
+</head>
+<body>
+
+{{template "header.gohtml"}}
+
+<main class="container-fluid">
+    {{template "menu.gohtml"}}
+
+
+    <div role="document">
+
+        <article>
+            All is good ✅
+        </article>
+
+        <div class="grid">
+            <article>
+                <header>Upcoming todos</header>
+                <ul>
+                    <li>15.11.2022 — monthly review of access rights</li>
+                    <li>23.11.2022 — security awareness training</li>
+                    <li>28.11.2022 — audit</li>
+                </ul>
+            </article>
+            <article>
+                <header>Recent events</header>
+                <ul>
+                    <li>New supplier: GitHub</li>
+                    <li>New employee: Peter Pane</li>
+                    <li>New employee: Peter Paul</li>
+                </ul>
+            </article>
+
+        </div>
+
+        {{template "footer.gohtml"}}
+    </div>
+
+</main>
+<script>
+    // https://www.w3schools.com/howto/howto_js_filter_table.asp
+    function filter() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchField");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("mainTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<script>
+    const activeLink = document.querySelector("aside a#dashboard-link"), parentAccordion = activeLink.closest("details");
+    activeLink.setAttribute("aria-current", "page"), parentAccordion.setAttribute("open", "true")
+</script>
+<script src="/static/js/commons.min.js"></script>
+</body>
+</html>
